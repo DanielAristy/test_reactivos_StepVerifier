@@ -57,11 +57,9 @@ class ServicioTest {
     void testBuscarTodosFiltro(){
         Flux<String> source = servicio.buscarTodosFiltro();
         StepVerifier.create(source)
-                .expectNext("JHON")
-                //Condicional para verificar de los valores filtrados que empiecen por "JO"
-                .expectNextMatches(name -> name.startsWith("JO"))
-                .expectNext("CATE")
-                .expectComplete()
-                .verify();
+                .expectNextCount(3)
+                .expectErrorMatches(throwable -> throwable instanceof IllegalArgumentException &&
+                        throwable.getMessage().equals("Mensaje de Error")
+                ).verify();
     }
 }
