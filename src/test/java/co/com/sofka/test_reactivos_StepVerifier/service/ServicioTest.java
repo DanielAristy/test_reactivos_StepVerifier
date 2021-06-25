@@ -52,4 +52,16 @@ class ServicioTest {
                 .thenAwait(Duration.ofSeconds(1))
                 .verifyComplete();
     }
+
+    @Test
+    void testBuscarTodosFiltro(){
+        Flux<String> source = servicio.buscarTodosFiltro();
+        StepVerifier.create(source)
+                .expectNext("JHON")
+                //Condicional para verificar de los valores filtrados que empiecen por "JO"
+                .expectNextMatches(name -> name.startsWith("JO"))
+                .expectNext("CATE")
+                .expectComplete()
+                .verify();
+    }
 }

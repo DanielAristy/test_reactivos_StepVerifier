@@ -17,4 +17,10 @@ public class Servicio {
     public Flux<String> buscarTodosLento() {
         return Flux.just("Pedro", "Maria", "Jesus", "Carmen" ,"Daniel").delaySequence(Duration.ofSeconds(20));
     }
+    public Flux<String> buscarTodosFiltro(){
+        Flux<String> source = Flux.just("Jhon", "Daniel", "Maria", "Jose", "Pedro", "Cate")
+                .filter(name -> name.length() == 4)
+                .map(String::toUpperCase);
+        return source;
+    }
 }
